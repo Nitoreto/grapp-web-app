@@ -25,6 +25,7 @@ public class Formulario {
     public String toString() {
         return "Formulario [img=" + img + ", text=" + text + "]";
     }
+    //hola
     
 }
 
