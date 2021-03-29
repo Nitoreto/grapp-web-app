@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>See Photo</title>
+</head>
+<body>
+    <header th:insert="fragments/header.html"></header>
+    <div class="container">
+        <h2>Formulario</h2>
+        <form action="/see" method="POST" th:object="${formulario}">
+            <div class ="form"> 
+                <label for="text">Id de la foto:</label>
+                <input th:field="*{text}" type="text" id="texto" name="texto">
+                <p style= "color:red" th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Name Error</p>
+                <p th:unless="${#fields.hasErrors('text')}"></p>
+                <input type="submit">
+            </div>
+        </form>
+
+        <div class="formResult">
+            <hr>
+            <p>Aqui abajo se generará tu foto mi cielo</p>
+        </div>
+    </div>
+
+    <footer th:insert="fragments/footer.html"></footer>
+</body>
+</html>

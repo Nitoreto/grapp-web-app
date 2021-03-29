@@ -7,27 +7,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form example</title>
+    <title>Upload Photo</title>
 </head>
 <body>
     <header th:insert="fragments/header.html"></header>
     <div class="container">
-        <h1>Formulario</h1>
-        <form action="/form" method="POST" th:object="${formulario}">
+        <h2>Formulario</h2>
+        <form action="/upload" method="POST" th:object="${formulario}">
             <div class ="form"> 
                 <label for="img">Select image:</label>
                 <input th:field="*{img}" type="file" id="img" name="img" accept="image/*">
                 <br>
-                <label for="text"> Select text:</label>
-                <input th:field="*{text}" type="text" id="texto" name="texto">
-                <p th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Name Error</p>
-                <p th:unless="${#fields.hasErrors('text')}"></p>
                 <input type="submit">
             </div>
           </form>
 
           <div class="formResult">
-                <p th:text="${confirmation}">Ok</p>
+                <hr>
+                <p>Aqui abajo se generará tu id mi cielo</p>
+                <p style="color:red" th:text="${id}">Ok</p>
           </div>
     </div>
 

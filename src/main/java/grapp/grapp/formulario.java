@@ -24,8 +24,7 @@ public class formulario {
     @Override
     public String toString() {
         return "Formulario [img=" + img + ", text=" + text + "]";
-    }
-    //hola
+    }    
     
 }
 
