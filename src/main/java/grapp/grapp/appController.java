@@ -35,13 +35,13 @@ public class appController implements ErrorController{
     }
 
     @GetMapping(value="/form")
-    String form(Model model,@Valid Formulario formulario){
+    String form(Model model,@Valid formulario formulario){
         //model.addAttribute("formulario", new Formulario());
         return "form.html";
     }
 
     @PostMapping(value="/form")
-    String formPost(Model model, @Valid Formulario formulario, BindingResult bindingResult){
+    String formPost(Model model, @Valid formulario formulario, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return "form.html";
         }
