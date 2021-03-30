@@ -21,3 +21,40 @@ Esta aplicación web seguirá una arquitectura multicapa utilizando el patrón M
 * Maven: herramienta que simplifica los procesos de compilar y ejecutar ejecutables a partir de un código fuente. Viene muy bien para lanzar una aplicación a un domino(deploy), ya que es capaz de tener las dependencias específicadas en un fichero denominado POM.xlm, y simplemente al compilar descargará lo que necesite. Además, ofrece herramientas como test unitarios, que serán de utilidad. Combinado con Spring, podrémos compilar y lanzar a un localhost para probar con muchísima facilidad usando `mvn spring-boot:run`
 * Thymeleaf: framework de plantillas html que utilizamos para conectar el contenido de las vistas con el resto con mayor facilidad. Permite la integración con Spring MVC.
 * Heroku: servicio utilizado para desplegar la aplicación en un dominio. También ofrece una base de datos gratuita y desplegar la aplicación directamente desde un repositorio GitHub(que será este). Esta página estará desplegada en el siguiente enlace [https://guardaropapp.herokuapp.com/](https://)
+
+## Ayuda
+
+### Controller
+
+Se encuentra en [src\main\java\grapp\grapp](https://github.com/bdmariobd/grapp-web-app/tree/master/src/main/java/grapp/grapp)
+
+Aqui crearemos las rutas de nuestra aplicación, creando su metodo GET con la anotacion`@GetMapping` siempre para acceder a la ruta:
+
+```java
+@GetMapping(value="/upload")
+    String upload(Model model,@Valid formulario formulario){
+        return "upload.html";
+    }
+```
+
+Y su metodo POST con la anotación `@PostMapping` en caso de tener que hacer alguna request al servidor:
+
+```java
+@PostMapping(value="/upload")
+    String uploadPost(Model model, @Valid formulario formulario, BindingResult bindingResult){
+        //TODO upload photo to the server
+        //CODIGO DE ACCESO PARA POSTEAR FOTO
+        //TODO get photo id 
+        String generatedId="0";
+        model.addAttribute("id", generatedId);
+        return "upload.html";
+    }
+```
+
+Estos metodos devuelven un String que indica el nombre de la vista a renderizar accediendo a esa ruta.
+
+El parámetero `Model model` sirve para pasar contenido del controlador a la vista. Por ejemplo, `model.addAttribute("id", generatedId);` le envía a la vista un campo 'id' con el valor de una id.
+
+### Vistas
+
+Se encuentran en [src/main/resources/templates](https://github.com/bdmariobd/grapp-web-app/tree/master/src/main/resources/templates)
