@@ -13,7 +13,7 @@
     <header th:insert="fragments/header.html"></header>
     <div class="container">
         <h2>Formulario</h2>
-        <form action="/upload" method="POST" th:object="${formulario}">
+        <form action="/upload" method="POST" th:object="${formulario}" enctype='multipart/form-data'>
             <div class ="form"> 
                 <label for="img">Select image:</label>
                 <input th:field="*{img}" type="file" id="img" name="img" accept="image/*">
@@ -26,6 +26,8 @@
                 <hr>
                 <p>Aqui abajo se generará tu id mi cielo</p>
                 <p style="color:red" th:text="${id}">Ok</p>
+                <p>Subiste esta imagen</p>
+                <img th:src="${imgUrl}"/>
           </div>
     </div>
 

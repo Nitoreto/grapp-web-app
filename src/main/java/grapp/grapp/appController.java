@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class appController implements ErrorController{
@@ -35,6 +34,8 @@ public class appController implements ErrorController{
     @PostMapping(value="/upload")
     String uploadPost(Model model, @Valid formulario formulario, BindingResult bindingResult){
         //TODO upload photo
+        String imgSrc = imgUrlScraper.uploadImg(formulario.getImg());
+        model.addAttribute("imgUrl", imgSrc);
 
         //TODO get id 
         String generatedId="0";
@@ -43,24 +44,22 @@ public class appController implements ErrorController{
     }
 
     @GetMapping(value="/see")
-    String see(Model model,@Valid formulario formulario){
+    String see(Model model,@Valid formulario formulario){        
         return "see.html";
     }
 
     @PostMapping(value="/see")
     String seePost(Model model, @Valid formulario formulario, BindingResult bindingResult){
-        if(!bindingResult.hasErrors()) model.addAttribute("confirmation", "He recibido el POST y los campos"+
-        " estan bien. Pusiste:" +formulario.getText());
+        if(!bindingResult.hasErrors()) {
+            String imgSrc = imgUrlScraper.searchById(formulario.getText());
+            model.addAttribute("imgUrl", imgSrc);
+        }
         return "see.html";
     }
 
     //---------------------------------------------------------------------------------------------------
 
     //HTTP Error handle DO NOT TOUCH
-    @RequestMapping(value = "/error")
-    public String error() {
-        return "Error handling";
-    }
 
     @Override
     public String getErrorPath() {
