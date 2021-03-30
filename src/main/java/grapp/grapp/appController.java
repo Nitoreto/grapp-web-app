@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class appController implements ErrorController{
@@ -35,6 +34,8 @@ public class appController implements ErrorController{
     @PostMapping(value="/upload")
     String uploadPost(Model model, @Valid formulario formulario, BindingResult bindingResult){
         //TODO upload photo
+        String imgSrc = imgUrlScraper.uploadImg(formulario.getImg());
+        model.addAttribute("imgUrl", imgSrc);
 
         //TODO get id 
         String generatedId="0";
@@ -59,10 +60,6 @@ public class appController implements ErrorController{
     //---------------------------------------------------------------------------------------------------
 
     //HTTP Error handle DO NOT TOUCH
-    @RequestMapping(value = "/error")
-    public String error() {
-        return "Error handling";
-    }
 
     @Override
     public String getErrorPath() {
