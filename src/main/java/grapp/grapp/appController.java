@@ -43,14 +43,16 @@ public class appController implements ErrorController{
     }
 
     @GetMapping(value="/see")
-    String see(Model model,@Valid formulario formulario){
+    String see(Model model,@Valid formulario formulario){        
         return "see.html";
     }
 
     @PostMapping(value="/see")
     String seePost(Model model, @Valid formulario formulario, BindingResult bindingResult){
-        if(!bindingResult.hasErrors()) model.addAttribute("confirmation", "He recibido el POST y los campos"+
-        " estan bien. Pusiste:" +formulario.getText());
+        if(!bindingResult.hasErrors()) {
+            String imgSrc = imgUrlScraper.searchById(formulario.getText());
+            model.addAttribute("imgUrl", imgSrc);
+        }
         return "see.html";
     }
 
