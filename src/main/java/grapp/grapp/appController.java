@@ -33,12 +33,10 @@ public class appController implements ErrorController{
 
     @PostMapping(value="/upload")
     String uploadPost(Model model, @Valid formulario formulario, BindingResult bindingResult){
-        //TODO upload photo
-        String imgSrc = imgUrlScraper.uploadImg(formulario.getImg());
-        model.addAttribute("imgUrl", imgSrc);
-
-        //TODO get id 
-        String generatedId="0";
+        //upload photo
+        String generatedId = imgUrlScraper.uploadImg(formulario.getImg());
+        model.addAttribute("imgUrl", imgUrlScraper.getImageUrl(generatedId));
+        //get id 
         model.addAttribute("id", generatedId);
         return "upload.html";
     }
@@ -51,7 +49,7 @@ public class appController implements ErrorController{
     @PostMapping(value="/see")
     String seePost(Model model, @Valid formulario formulario, BindingResult bindingResult){
         if(!bindingResult.hasErrors()) {
-            String imgSrc = imgUrlScraper.searchById(formulario.getText());
+            String imgSrc = imgUrlScraper.getImageUrl(imgUrlScraper.searchById(formulario.getText()));
             model.addAttribute("imgUrl", imgSrc);
         }
         return "see.html";
