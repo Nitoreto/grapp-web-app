@@ -1,13 +1,56 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" th:href= "@{/css/estilo.css}">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My index</title>
 </head>
-<body>
+<body class = "cuerpo1">
     <header th:insert="fragments/header.html"> </header>
+    <div class ="container espacio">
+    <div class="row row-cols-1 row-cols-md-3 g-4 pt-5">
+        <div class="col">
+          <div class="card h-100">
+            <img th:src="@{/images/conjuntos/conjuntoEjemplo.png}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Conjunto de chándal</h5>
+              <p class="card-text">Conjunto formado por una sudadera y un pantalón con unas sneakers blancas marca "nike airforce".</p>
+            </div>
+                <div class = "card-body">
+                    <button type="button" class="btn btn-danger"><i class="bi bi-heart"></i></button>
+                </div>
+          </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+              <img th:src="@{/images/conjuntos/conjuntoEjemplo.png}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Conjunto de chándal</h5>
+                <p class="card-text">Conjunto formado por una sudadera y un pantalón con unas sneakers blancas marca "nike airforce".</p>
+              </div>
+              <div class = "card-body">
+              <button type="button" class="btn btn-danger"><i class="bi bi-heart"></i></button>
+          </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100">
+              <img th:src="@{/images/conjuntos/conjuntoEjemplo.png}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Conjunto de chándal</h5>
+                <p class="card-text">Conjunto formado por una sudadera y un pantalón con unas sneakers blancas marca "nike airforce".</p>
+              </div>
+              <div class = "card-body">
+              <button type="button" class="btn btn-danger"><i class="bi bi-heart"></i></button>
+          </div>
+            </div>
+          </div>
+      </div>
+    </div>
+
+    <!--
     <div class="container">
         <h1>Este es el index</h1>
         <p th:text="${key}">Ok</p>
@@ -20,5 +63,6 @@
         </tr>
     </div>
     <footer th:insert="fragments/footer.html"> </footer>
+-->
 </body>
 </html>
