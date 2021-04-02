@@ -1,12 +1,11 @@
 package grapp.grapp;
 
-import java.io.File;
-import javax.validation.constraints.Size;
+import org.springframework.web.multipart.MultipartFile;
 
-public class Formulario {
-    @Size(min=2,max=10)
+public class formulario {
+    //@Size(min=2,max=10)
     private String text;
-    private File img;
+    private MultipartFile  img;
     
     public String getText() {
         return text;
@@ -14,17 +13,17 @@ public class Formulario {
     public void setText(String text) {
         this.text = text;
     }
-    public File getImg() {
+    public MultipartFile  getImg() {
         return img;
     }
-    public void setImg(File img) {
+    public void setImg(MultipartFile  img) {
         this.img = img;
     }
 
     @Override
     public String toString() {
         return "Formulario [img=" + img + ", text=" + text + "]";
-    }
+    }    
     
 }
 
