@@ -4,6 +4,7 @@
     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
+    <link rel="stylesheet" type="text/css" th:href= "@{/css/estilo.css}">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,8 +12,8 @@
 </head>
 <body>
     <header th:insert="fragments/header.html"></header>
-    <div class="container">
-        <h2>Formulario</h2>
+    <div class="container espacio2">
+        <h2>Mi armario</h2>
         <form action="/see" method="POST" th:object="${formulario}">
             <div class ="form"> 
                 <label for="text">Id de la foto:</label>
