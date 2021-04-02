@@ -37,7 +37,9 @@ public class appController implements ErrorController{
         String generatedId = imgUrlScraper.uploadImg(formulario.getImg());
         model.addAttribute("imgUrl", imgUrlScraper.getImageUrl(generatedId));
         //get id 
+        String userID = formulario.getText();
         model.addAttribute("id", generatedId);
+        model.addAttribute("userID", userID);
         return "upload.html";
     }
 

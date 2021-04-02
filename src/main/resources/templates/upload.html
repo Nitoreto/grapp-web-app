@@ -15,6 +15,8 @@
         <h2>Formulario</h2>
         <form action="/upload" method="POST" th:object="${formulario}" enctype='multipart/form-data'>
             <div class ="form"> 
+                <label for="text">Introduce your username:</label>
+                <input th:field="*{text}" type="text" id="text" name="userID">
                 <label for="img">Select image:</label>
                 <input th:field="*{img}" type="file" id="img" name="img" accept="image/*">
                 <br>
@@ -28,6 +30,8 @@
                 <p style="color:red" th:text="${id}">Ok</p>
                 <p>Subiste esta imagen</p>
                 <img th:src="${imgUrl}"/>
+                <p>A este usuario</p>
+                <p style="color:darkcyan" th:text="${userID}">Ok</p>
           </div>
     </div>
 
