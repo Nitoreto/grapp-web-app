@@ -63,7 +63,7 @@ public class appController implements ErrorController{
             
             stmt.executeUpdate("CREATE TABLE IF NOT EXISTS imgs (idUser varchar2(10), idImg varchar2(10))");
             stmt.executeUpdate("INSERT INTO imgs VALUES (" + userID + ", " + generatedId  + ")");
-        } catch(SQLException e){
+        } catch(Exception e){
             model.addAttribute("excepcion", e.getMessage());
         }
         return "upload.html";
