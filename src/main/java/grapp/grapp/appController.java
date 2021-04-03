@@ -47,6 +47,11 @@ public class appController implements ErrorController{
     }
 
     
+    @GetMapping(value="/favorites")
+    String favorites(Model model,@Valid formulario formulario){        
+        return "favorites.html";
+    }
+    
     @GetMapping(value="/message")
     String message(Model model,@Valid formulario formulario){        
         return "message.html";

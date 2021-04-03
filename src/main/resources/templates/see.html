@@ -26,11 +26,56 @@
 
         <div class="formResult">
             <hr>
-            <p>Aqui abajo se generará tu foto mi cielo</p>
+            <p>Aqui abajo se generará tu foto</p>
             <img th:src="${imgUrl}"/>
         </div>
+
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Mis conjuntos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Mis prendas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li>
+          </ul>
+
+          <div class="row row-cols-1 row-cols-md-3 g-4 pt-5">
+            <div class="col">
+              <div class="card h-100">
+                <img th:src="@{/images/conjuntos/conjuntoEjemplo.png}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">Conjunto de chándal</h5>
+                  <p class="card-text">Conjunto formado por una sudadera y un pantalón con unas sneakers blancas marca "nike airforce".</p>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                  <img th:src="@{/images/conjuntos/conjuntoEjemplo.png}" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">Conjunto de chándal</h5>
+                    <p class="card-text">Conjunto formado por una sudadera y un pantalón con unas sneakers blancas marca "nike airforce".</p>
+                  </div>
+              </div>
+                </div>
+              </div>
+                </div>
+              </div>
+          </div>
+        </div>
+
     </div>
 
+
+    <div class="btn-group" role="group" aria-label="Basic outlined example">
+      <button type="button" class="btn btn-outline-primary">1</button>
+      <button type="button" class="btn btn-outline-primary">2</button>
+      <button type="button" class="btn btn-outline-primary">3</button>
+    </div>
+    
     <footer th:insert="fragments/footer.html"></footer>
 </body>
 </html>
