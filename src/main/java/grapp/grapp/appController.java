@@ -9,9 +9,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -65,7 +63,7 @@ public class appController implements ErrorController{
             
             stmt.executeUpdate("CREATE TABLE IF NOT EXISTS imgs (idUser varchar2(10), idImg varchar2(10))");
             stmt.executeUpdate("INSERT INTO imgs VALUES (" + userID + ", " + generatedId  + ")");
-        } catch(Exception e){
+        } catch(SQLException e){
             model.addAttribute("excepcion", e.getMessage());
         }
         return "upload.html";
