@@ -1,18 +1,20 @@
 package grapp.grapp;
-
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
 import javax.validation.Valid;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,7 +24,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class appController implements ErrorController{
 
-    private String dbUrl = "postgres://fqdunfercvmtrb:4893ba593d036a518f11634deae9224233e95c7f1e9e37bb2f446805dceb3a29@ec2-52-50-171-4.eu-west-1.compute.amazonaws.com:5432/dduetcch1mnm33";
+    @Value("${spring.datasource.url}")
+    private String dbUrl;
+  
+    @Autowired
+    private DataSource dataSource;
 
     @GetMapping(value= "/")
     String index(Model model){
@@ -40,30 +46,20 @@ public class appController implements ErrorController{
         return "upload.html";
     }
 
-    /*@Bean
-    public DataSource dataSource() throws SQLException {
-      if (dbUrl == null || dbUrl.isEmpty()) {
-        return new HikariDataSource();
-      } else {
-        HikariConfig config = new HikariConfig();
-        config.setJdbcUrl(dbUrl);
-        return new HikariDataSource(config);
-      }
-    }*/
-
     @PostMapping(value="/upload")
     String uploadPost(Model model, @Valid formulario formulario, BindingResult bindingResult){
-        //upload photo
-        String generatedId = imgUrlScraper.uploadImg(formulario.getImg());
-        model.addAttribute("imgUrl", imgUrlScraper.getImageUrl(generatedId));
-        //get id 
-        String userID = formulario.getText();
-        model.addAttribute("id", generatedId);
-        model.addAttribute("userID", userID);
+        
         //bbddd
-        try (Connection connection = DataSource.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
-            
+            //upload photo
+            String generatedId = imgUrlScraper.uploadImg(formulario.getImg());
+            model.addAttribute("imgUrl", imgUrlScraper.getImageUrl(generatedId));
+            //get id 
+            String userID = formulario.getText();
+            model.addAttribute("id", generatedId);
+            model.addAttribute("userID", userID);
+
             stmt.executeUpdate("CREATE TABLE IF NOT EXISTS imgs (idUser varchar2(10), idImg varchar2(10))");
             stmt.executeUpdate("INSERT INTO imgs VALUES (" + userID + ", " + generatedId  + ")");
         } catch(Exception e){
@@ -96,14 +92,15 @@ public class appController implements ErrorController{
         return "/error";
     }
 
-    private static Connection getConnection() throws URISyntaxException, SQLException {
-        URI dbUri = new URI(System.getenv("DATABASE_URL"));
-    
-        String username = dbUri.getUserInfo().split(":")[0];
-        String password = dbUri.getUserInfo().split(":")[1];
-        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
-    
-        return DriverManager.getConnection(dbUrl, username, password);
+    @Bean
+    public DataSource dataSource() throws SQLException {
+      if (dbUrl == null || dbUrl.isEmpty()) {
+        return new HikariDataSource();
+      } else {
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl(dbUrl);
+        return new HikariDataSource(config);
+      }
     }
 
 }
