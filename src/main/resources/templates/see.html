@@ -1,81 +1,44 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
-    xmlns:th="http://www.thymeleaf.org" 
-    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
 <head>
-    <link rel="stylesheet" type="text/css" th:href= "@{/css/estilo.css}">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>See Photo</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/estilo.css}">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>See Photo</title>
 </head>
+
 <body>
-    <header th:insert="fragments/header.html"></header>
-    <div class="container espacio2">
-        <h2>Mi armario</h2>
-        <form action="/see" method="POST" th:object="${formulario}">
-            <div class ="form"> 
-                <label for="text">Id de la foto:</label>
-                <input th:field="*{text}" type="text" id="texto" name="texto">
-                <p style= "color:red" th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Name Error</p>
-                <p th:unless="${#fields.hasErrors('text')}"></p>
-                <input type="submit">
-            </div>
-        </form>
+  <header th:insert="fragments/header.html"></header>
+  <div class="container espacio2">
+    <h2>Fotos de un usuario</h2>
+    <form action="/see" method="POST" th:object="${formulario}">
+      <div class="form">
+        <label for="text">Nombre de usuario:</label>
+        <input th:field="*{text}" type="text" id="texto" name="texto">
+        <p style="color:red" th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Name Error</p>
+        <p th:unless="${#fields.hasErrors('text')}"></p>
+        <input type="submit">
+      </div>
+    </form>
+    <p>Aqui abajo se verán las fotos del usuario</p>
+    <ul th:each="i : ${urlList}">
+      <li> FOTO</li>
+      <img th:src="${i}" />
+    </ul>
+  </div>
+  <p style="color: red;" th:text="${excepcion}">OK</p>
 
-        <div class="formResult">
-            <hr>
-            <p>Aqui abajo se generará tu foto</p>
-            <img th:src="${imgUrl}"/>
-        </div>
+  <div class="btn-group" role="group" aria-label="Basic outlined example">
+    <button type="button" class="btn btn-outline-primary">1</button>
+    <button type="button" class="btn btn-outline-primary">2</button>
+    <button type="button" class="btn btn-outline-primary">3</button>
+  </div>
 
-        <ul class="nav justify-content-end">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Mis conjuntos</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Mis prendas</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
-          </ul>
-
-          <div class="row row-cols-1 row-cols-md-3 g-4 pt-5">
-            <div class="col">
-              <div class="card h-100">
-                <img th:src="@{/images/conjuntos/conjuntoEjemplo.png}" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Conjunto de chándal</h5>
-                  <p class="card-text">Conjunto formado por una sudadera y un pantalón con unas sneakers blancas marca "nike airforce".</p>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                  <img th:src="@{/images/conjuntos/conjuntoEjemplo.png}" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Conjunto de chándal</h5>
-                    <p class="card-text">Conjunto formado por una sudadera y un pantalón con unas sneakers blancas marca "nike airforce".</p>
-                  </div>
-              </div>
-                </div>
-              </div>
-                </div>
-              </div>
-          </div>
-        </div>
-
-    </div>
-
-
-    <div class="btn-group" role="group" aria-label="Basic outlined example">
-      <button type="button" class="btn btn-outline-primary">1</button>
-      <button type="button" class="btn btn-outline-primary">2</button>
-      <button type="button" class="btn btn-outline-primary">3</button>
-    </div>
-    
-    <footer th:insert="fragments/footer.html"></footer>
+  <footer th:insert="fragments/footer.html"></footer>
 </body>
+
 </html>

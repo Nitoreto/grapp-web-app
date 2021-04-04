@@ -1,11 +1,21 @@
 package grapp.grapp;
-
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
 import javax.validation.Valid;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +24,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class appController implements ErrorController{
+
+    @Value("${spring.datasource.url}")
+    private String dbUrl;
+  
+    @Autowired
+    private DataSource dataSource;
 
     @GetMapping(value= "/")
     String index(Model model){
@@ -33,11 +49,32 @@ public class appController implements ErrorController{
 
     @PostMapping(value="/upload")
     String uploadPost(Model model, @Valid formulario formulario, BindingResult bindingResult){
-        //upload photo
-        String generatedId = imgUrlScraper.uploadImg(formulario.getImg());
-        model.addAttribute("imgUrl", imgUrlScraper.getImageUrl(generatedId));
-        //get id 
-        model.addAttribute("id", generatedId);
+        
+        //bbddd
+        try (Connection connection = dataSource.getConnection()) {
+            Statement stmt = connection.createStatement();
+            //upload photo
+            String generatedId = imgUrlScraper.uploadImg(formulario.getImg());
+            model.addAttribute("imgUrl", imgUrlScraper.getImageUrl(generatedId));
+            //get id 
+            String userID = formulario.getText();
+            model.addAttribute("id", generatedId);
+            model.addAttribute("userID", userID);
+
+            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS imgs (idUser varchar(10), idImg varchar(10))");
+            stmt.executeUpdate("INSERT INTO imgs VALUES ('" + userID + "', '" + generatedId  + "')");
+            ResultSet rs = stmt.executeQuery("SELECT count(*) as check FROM imgs WHERE idUser='"+userID+"' AND idImg='"+generatedId+"'");
+            Boolean output = rs.next();
+            if(output){
+                model.addAttribute("exito", "Se ha insertado");
+            }
+            else{
+                model.addAttribute("exito", "No se ha insertado");
+            }
+
+        } catch(Exception e){
+            model.addAttribute("excepcion", e.getMessage());
+        }
         return "upload.html";
     }
 
@@ -69,9 +106,16 @@ public class appController implements ErrorController{
 
     @PostMapping(value="/see")
     String seePost(Model model, @Valid formulario formulario, BindingResult bindingResult){
-        if(!bindingResult.hasErrors()) {
-            String imgSrc = imgUrlScraper.getImageUrl(imgUrlScraper.searchById(formulario.getText()));
-            model.addAttribute("imgUrl", imgSrc);
+        try (Connection connection = dataSource.getConnection()) {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT idImg FROM imgs WHERE idUser='" + formulario.getText() +"'");
+            List<String> imgUrList= new ArrayList<String>();
+            while(rs.next()){
+                imgUrList.add(imgUrlScraper.getImageUrl(imgUrlScraper.searchById(rs.getString("idImg"))));
+            }
+            model.addAttribute("urlList", imgUrList);
+        } catch(Exception e){
+            model.addAttribute("excepcion", e.getMessage());
         }
         return "see.html";
     }
@@ -84,6 +128,17 @@ public class appController implements ErrorController{
     public String getErrorPath() {
         // TODO Auto-generated method stub
         return "/error";
+    }
+
+    @Bean
+    public DataSource dataSource() throws SQLException {
+      if (dbUrl == null || dbUrl.isEmpty()) {
+        return new HikariDataSource();
+      } else {
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl(dbUrl);
+        return new HikariDataSource(config);
+      }
     }
 
 }

@@ -25,7 +25,6 @@ public class imgUrlScraper {
      * @param id id of the img to search in https://api.imgur.com/3/image/ 
      * @return string of the id if the img was found, id of error img if it was not found
      */
-
     public static String searchById(String id) {
         try {
             Map<String, String> headers = new HashMap<>();
