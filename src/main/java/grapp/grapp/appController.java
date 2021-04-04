@@ -1,5 +1,6 @@
 package grapp.grapp;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -61,7 +62,16 @@ public class appController implements ErrorController{
             model.addAttribute("userID", userID);
 
             stmt.executeUpdate("CREATE TABLE IF NOT EXISTS imgs (idUser varchar(10), idImg varchar(10))");
-            stmt.executeUpdate("INSERT INTO imgs VALUES (" + userID + ", " + generatedId  + ")");
+            stmt.executeUpdate("INSERT INTO imgs VALUES ('" + userID + "', '" + generatedId  + "')");
+            ResultSet rs = stmt.executeQuery("SELECT count(*) as check FROM imgs WHERE idUser='"+userID+"' AND idImg='"+generatedId+"'");
+            Boolean output = rs.next();
+            if(output){
+                model.addAttribute("exito", "Se ha insertado");
+            }
+            else{
+                model.addAttribute("exito", "No se ha insertado");
+            }
+
         } catch(Exception e){
             model.addAttribute("excepcion", e.getMessage());
         }
@@ -75,9 +85,16 @@ public class appController implements ErrorController{
 
     @PostMapping(value="/see")
     String seePost(Model model, @Valid formulario formulario, BindingResult bindingResult){
-        if(!bindingResult.hasErrors()) {
-            String imgSrc = imgUrlScraper.getImageUrl(imgUrlScraper.searchById(formulario.getText()));
-            model.addAttribute("imgUrl", imgSrc);
+        try (Connection connection = dataSource.getConnection()) {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT idImg FROM imgs WHERE idUser='" + formulario.getText() +"'");
+            List<String> imgUrList= new ArrayList<String>();
+            while(rs.next()){
+                imgUrList.add(imgUrlScraper.getImageUrl(imgUrlScraper.searchById(rs.getString("idImg"))));
+            }
+            model.addAttribute("urlList", imgUrList);
+        } catch(Exception e){
+            model.addAttribute("excepcion", e.getMessage());
         }
         return "see.html";
     }
