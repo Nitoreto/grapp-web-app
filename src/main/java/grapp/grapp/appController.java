@@ -57,6 +57,16 @@ public class appController implements ErrorController{
         return "message.html";
     }
 
+    @GetMapping(value="/signup")
+    String signup(Model model,@Valid formulario formulario){        
+        return "signup.html";
+    }
+
+    @GetMapping(value="/login")
+    String login(Model model,@Valid formulario formulario){        
+        return "login.html";
+    }
+
     @PostMapping(value="/see")
     String seePost(Model model, @Valid formulario formulario, BindingResult bindingResult){
         if(!bindingResult.hasErrors()) {

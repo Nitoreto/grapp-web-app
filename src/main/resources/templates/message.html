@@ -23,13 +23,43 @@
         </li>
       </ul>
 
+<!-- ---------------------------TARJETA QUE MUESTRA EL MENSAJE ------------------------->
 
       <div class="card">
         <h5 class="card-header">Camiseta Nike #idPrenda</h5>
         <div class="card-body">
           <h5 class="card-title">Adriana</h5>
           <p class="card-text">En cuánto dinero me dejaría esa camiseta? Gracias.</p>
-          <a href="#" class="btn btn-primary">Responder</a>
+
+<!-- ---------------------------VENTANA EMERGENTE CUANDO VAS A RESPONDER  ------------------------->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Responder</button>
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Nuevo mensaje</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="mb-3">
+                      <label for="recipient-name" class="col-form-label">Destinatario:</label>
+                      <input type="text" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="mb-3">
+                      <label for="message-text" class="col-form-label">Mensaje:</label>
+                      <textarea class="form-control" id="message-text"></textarea>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                  <button type="button" class="btn btn-primary">Enviar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+<!-- V---------------------------------------------------------------------------------------------------------------------------------------- -->
         </div>
         <div class="card-footer">
             <small class="text-muted">Send 3 mins ago</small>
@@ -42,7 +72,33 @@
             <div class="card-body">
               <h5 class="card-title">Carlos</h5>
               <p class="card-text">De dónde son las zapatillas? Gracias.</p>
-              <a href="#" class="btn btn-primary">Responder</a>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Responder</button>
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Nuevo mensaje</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form>
+                        <div class="mb-3">
+                          <label for="recipient-name" class="col-form-label">Destinatario:</label>
+                          <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="mb-3">
+                          <label for="message-text" class="col-form-label">Mensaje:</label>
+                          <textarea class="form-control" id="message-text"></textarea>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                      <button type="button" class="btn btn-primary">Enviar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="card-footer">
                 <small class="text-muted">Send 2 hours ago</small>
