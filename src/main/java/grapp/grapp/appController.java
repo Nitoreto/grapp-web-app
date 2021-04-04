@@ -83,6 +83,27 @@ public class appController implements ErrorController{
         return "see.html";
     }
 
+    
+    @GetMapping(value="/favorites")
+    String favorites(Model model,@Valid formulario formulario){        
+        return "favorites.html";
+    }
+    
+    @GetMapping(value="/message")
+    String message(Model model,@Valid formulario formulario){        
+        return "message.html";
+    }
+
+    @GetMapping(value="/signup")
+    String signup(Model model,@Valid formulario formulario){        
+        return "signup.html";
+    }
+
+    @GetMapping(value="/login")
+    String login(Model model,@Valid formulario formulario){        
+        return "login.html";
+    }
+
     @PostMapping(value="/see")
     String seePost(Model model, @Valid formulario formulario, BindingResult bindingResult){
         try (Connection connection = dataSource.getConnection()) {

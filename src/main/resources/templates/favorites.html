@@ -11,11 +11,7 @@
     <header th:insert="fragments/header.html"> </header>
     <div class ="container espacio">
       </nav>
-      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <span class="badge rounded-pill bg-light text-dark">Filtro 1</span>
-        <span class="badge rounded-pill bg-light text-dark">Filtro 2</span>
-        <span class="badge rounded-pill bg-light text-dark">Filtro 3</span>
-      </div>
+      <h1>Aquí aparecen las prendas a las que diste al botón de favorito.</h1>
 
     <div class="row row-cols-1 row-cols-md-3 g-4 pt-5">
         <div class="col">
@@ -27,6 +23,37 @@
             </div>
                 <div class = "card-body">
                     <button type="button" class="btn btn-danger"><i class="bi bi-heart"></i></button>
+<!-- --------------------------- BOTON DE MENSAJE ------------------------->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap"><i class="bi bi-envelope"></i></button>
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Nuevo mensaje</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="mb-3">
+                      <label for="recipient-name" class="col-form-label">Destinatario:</label>
+                      <input type="text" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="mb-3">
+                      <label for="message-text" class="col-form-label">Mensaje:</label>
+                      <textarea class="form-control" id="message-text"></textarea>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                  <button type="button" class="btn btn-primary">Enviar</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+<!-- --------------------------------------------------------------------------------- ------------------------->
+
                 </div>
           </div>
         </div>
@@ -69,8 +96,7 @@
     
               </div>
     <!-- --------------------------------------------------------------------------------- ------------------------->
-    
-            </div>
+          </div>
             </div>
           </div>
           <div class="col">
@@ -82,31 +108,49 @@
               </div>
               <div class = "card-body">
               <button type="button" class="btn btn-danger"><i class="bi bi-heart"></i></button>
+              <!-- --------------------------- BOTON DE MENSAJE ------------------------->
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap"><i class="bi bi-envelope"></i></button>
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Nuevo mensaje</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form>
+                        <div class="mb-3">
+                          <label for="recipient-name" class="col-form-label">Destinatario:</label>
+                          <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="mb-3">
+                          <label for="message-text" class="col-form-label">Mensaje:</label>
+                          <textarea class="form-control" id="message-text"></textarea>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                      <button type="button" class="btn btn-primary">Enviar</button>
+                    </div>
+                  </div>
+                </div>
+    
+              </div>
+    <!-- --------------------------------------------------------------------------------- ------------------------->
           </div>
-        
             </div>
           </div>
       </div>
     </div>
 
-    <!--
-    <div class="container">
-        <h2>Este es el indice</h2>
-        <p th:text="${key}">Ok</p>
-
-    <div class = "listado">
-        <h3>Ejemplo listado mediante codigo java. Se listan las funcionalidades de nuestra app</h3>
-        <ul th:each="i : ${features}">
-            <li th:text = "${i}">Name</li>
-        </ul>
-    </div>
-    <footer th:insert="fragments/footer.html"> </footer>
--->
+   
     <div class="btn-group" role="group" aria-label="Basic outlined example">
-      <button type="button" class="btn btn-outline-primary">1</button>
-      <button type="button" class="btn btn-outline-primary">2</button>
-      <button type="button" class="btn btn-outline-primary">3</button>
-    </div>
+        <button type="button" class="btn btn-outline-primary">1</button>
+        <button type="button" class="btn btn-outline-primary">2</button>
+        <button type="button" class="btn btn-outline-primary">3</button>
+      </div>
+
     <footer th:insert="fragments/footer.html"> </footer>
 </body>
 </html>
