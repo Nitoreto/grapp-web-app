@@ -27,7 +27,7 @@
     <p>Aqui abajo se verán las fotos del usuario</p>
 
     <ul th:each="img : ${urlMap}">
-      <div class="card h-100">
+      <div class="card h-100" style="max-width: 540px;">
         <img th:src="${img.value}" />
         <div class="card-body">
           <h5 class="card-title">Foto</h5>
