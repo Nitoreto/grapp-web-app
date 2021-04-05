@@ -16,13 +16,11 @@
   <div class="container espacio2">
     <h2>Fotos de un usuario</h2>
     <form action="/see" method="POST" th:object="${formulario}">
-      <div class="form">
-        <label for="text">Nombre de usuario:</label>
-        <input th:field="*{text}" type="text" id="texto" name="texto">
-        <p style="color:red" th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Name Error</p>
-        <p th:unless="${#fields.hasErrors('text')}"></p>
-        <input type="submit">
-      </div>
+      <div class="row">
+        <div class="col">
+          <input th:field="*{text}" type="text" class="form-control" placeholder="Nombre" aria-label="First name">
+        </div>
+          <button type="submit" class="btn btn-primary">Buscar</button>
     </form>
     <p>Aqui abajo se verán las fotos del usuario</p>
 
