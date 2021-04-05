@@ -26,7 +26,7 @@
     </form>
     <p>Aqui abajo se verán las fotos del usuario</p>
 
-    <tr th:each="img : ${urlList}">
+    <tr th:each="img : ${urlMap}">
       <div class="card h-100">
         <img th:src="${img.value}" />
         <div class="card-body">
