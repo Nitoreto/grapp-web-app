@@ -4,7 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 import javax.validation.Valid;
@@ -109,11 +111,11 @@ public class appController implements ErrorController{
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT idImg FROM imgs WHERE idUser='" + formulario.getText() +"'");
-            List<String> imgUrList= new ArrayList<String>();
+            Map<String, String> imgUrlMap= new HashMap<String, String>();
             while(rs.next()){
-                imgUrList.add(imgUrlScraper.getImageUrl(imgUrlScraper.searchById(rs.getString("idImg"))));
+                imgUrlMap.put(rs.getString("idImg"), imgUrlScraper.getImageUrl(imgUrlScraper.searchById(rs.getString("idImg"))));
             }
-            model.addAttribute("urlList", imgUrList);
+            model.addAttribute("urlMap", imgUrlMap);
         } catch(Exception e){
             model.addAttribute("excepcion", e.getMessage());
         }
